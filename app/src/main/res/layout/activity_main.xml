@@ -13,7 +13,7 @@
         android:id="@+id/phone_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please input phone number!"
+        android:hint="Please input phone number!"
         android:textSize="18sp"/>
     
     <TextView

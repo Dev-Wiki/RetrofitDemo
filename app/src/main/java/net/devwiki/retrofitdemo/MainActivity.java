@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void query(){
+        resultView.setText("");
         if (phoneView.getText().toString().isEmpty()){
             Toast.makeText(MainActivity.this, "Please input phone number!", Toast.LENGTH_SHORT).show();
             return;
@@ -49,13 +50,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .baseUrl(BASE_URL)
                 .build();
         PhoneService service = retrofit.create(PhoneService.class);
-        Call<PhoneResult> call = service.getPhoneREsult(API_KEY, phoneView.getText().toString());
+        Call<PhoneResult> call = service.getResult(API_KEY, phoneView.getText().toString());
         call.enqueue(new Callback<PhoneResult>() {
             @Override
             public void onResponse(Call<PhoneResult> call, Response<PhoneResult> response) {
                 if (response.isSuccess()){
                     PhoneResult result = response.body();
-                    if (result != null){
+                    if (result != null && result.getErrNum() == 0){
                         PhoneResult.RetDataEntity entity = result.getRetData();
                         resultView.append("地址：" + entity.getCity());
                     }
