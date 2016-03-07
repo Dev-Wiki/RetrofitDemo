@@ -12,6 +12,8 @@ import net.devwiki.retrofitdemo.net.GsonConverterFactory;
 import net.devwiki.retrofitdemo.net.PhoneResult;
 import net.devwiki.retrofitdemo.net.PhoneService;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,6 +21,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView resultView;
     @Bind(R.id.query_view)
     Button queryView;
+    @Bind(R.id.query_rxjava_view)
+    Button queryRxjavaView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +48,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
     }
 
-    private void query(){
+    private Observable<Response<PhoneResult>> getPhoneResult() {
+        return Observable.create(new Observable.OnSubscribe<Response<PhoneResult>>() {
+            @Override
+            public void call(Subscriber<? super Response<PhoneResult>> subscriber) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .baseUrl(BASE_URL)
+                        .build();
+                PhoneService service = retrofit.create(PhoneService.class);
+                Call<PhoneResult> call = service.getResult(API_KEY, phoneView.getText().toString());
+                try {
+                    subscriber.onNext(call.execute());
+                    subscriber.onCompleted();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void queryByRxJava() {
         resultView.setText("");
-        if (phoneView.getText().toString().isEmpty()){
+        if (phoneView.getText().toString().isEmpty()) {
+            Toast.makeText(MainActivity.this, "Please input phone number!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        getPhoneResult().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<PhoneResult>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<PhoneResult> response) {
+                        if (response.isSuccess()) {
+                            PhoneResult result = response.body();
+                            if (result != null && result.getErrNum() == 0) {
+                                PhoneResult.RetDataEntity entity = result.getRetData();
+                                resultView.append("地址：" + entity.getCity());
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void query() {
+        resultView.setText("");
+        if (phoneView.getText().toString().isEmpty()) {
             Toast.makeText(MainActivity.this, "Please input phone number!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -54,9 +115,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         call.enqueue(new Callback<PhoneResult>() {
             @Override
             public void onResponse(Call<PhoneResult> call, Response<PhoneResult> response) {
-                if (response.isSuccess()){
+                if (response.isSuccess()) {
                     PhoneResult result = response.body();
-                    if (result != null && result.getErrNum() == 0){
+                    if (result != null && result.getErrNum() == 0) {
                         PhoneResult.RetDataEntity entity = result.getRetData();
                         resultView.append("地址：" + entity.getCity());
                     }
@@ -70,8 +131,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    @OnClick(R.id.query_view)
+    @OnClick({R.id.query_view, R.id.query_rxjava_view})
     public void onClick(View view) {
-        query();
+        switch (view.getId()) {
+            case R.id.query_view:
+                query();
+                break;
+            case R.id.query_rxjava_view:
+                queryByRxJava();
+                break;
+        }
     }
 }

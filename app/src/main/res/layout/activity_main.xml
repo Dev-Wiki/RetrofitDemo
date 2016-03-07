@@ -24,10 +24,24 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:textSize="16sp"/>
 
-    <Button
-        android:id="@+id/query_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Query"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/query_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Query"/>
+
+        <Button
+            android:id="@+id/query_rxjava_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="QueryByRxJava"/>
+    </LinearLayout>
 </RelativeLayout>
