@@ -1,4 +1,4 @@
-package net.devwiki.retrofitdemo.net;
+package net.devwiki.retrofitdemo.phone;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

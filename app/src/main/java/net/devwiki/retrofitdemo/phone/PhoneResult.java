@@ -1,4 +1,4 @@
-package net.devwiki.retrofitdemo.net;
+package net.devwiki.retrofitdemo.phone;
 
 /**
  * Created by zyz on 2016/3/2.

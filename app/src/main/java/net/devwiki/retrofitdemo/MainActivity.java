@@ -1,5 +1,6 @@
 package net.devwiki.retrofitdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,9 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.devwiki.retrofitdemo.duoshuo.DuoShuoActivity;
+import net.devwiki.retrofitdemo.phone.PhoneResult;
 import net.devwiki.retrofitdemo.net.GsonConverterFactory;
-import net.devwiki.retrofitdemo.net.PhoneResult;
-import net.devwiki.retrofitdemo.net.PhoneService;
+import net.devwiki.retrofitdemo.phone.PhoneService;
 
 import java.io.IOException;
 
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button queryView;
     @Bind(R.id.query_rxjava_view)
     Button queryRxjavaView;
+    @Bind(R.id.duo_shuo)
+    Button duoShuo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    @OnClick({R.id.query_view, R.id.query_rxjava_view})
+    @OnClick({R.id.query_view, R.id.query_rxjava_view, R.id.duo_shuo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.query_view:
@@ -140,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.query_rxjava_view:
                 queryByRxJava();
                 break;
+            case R.id.duo_shuo:
+                startActivity(new Intent(MainActivity.this, DuoShuoActivity.class));
         }
     }
 }
