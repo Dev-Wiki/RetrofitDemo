@@ -12,8 +12,10 @@ import rx.Observable;
 public interface PhoneService {
 
     @GET("/apistore/mobilenumber/mobilenumber")
-    Call<PhoneResult> getResult(@Header("apikey") String apikey, @Query("phone") String phone);
+    Call<PhoneResult> getResult(@Header("apikey") String apikey,
+                                @Query("phone") String phone);
 
     @GET("/apistore/mobilenumber/mobilenumber")
-    Observable<PhoneResult> getPhoneResult(@Header("apikey") String apikey, @Query("phone") String phone);
+    Observable<PhoneResult> getPhoneResult(@Header("apikey") String apikey,
+                                           @Query("phone") String phone);
 }
