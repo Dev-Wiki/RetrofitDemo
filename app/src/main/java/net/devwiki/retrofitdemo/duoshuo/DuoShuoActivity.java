@@ -42,7 +42,7 @@ public class DuoShuoActivity extends AppCompatActivity {
         commitParam.setMessage("test commit!!!");
     }
 
-    @OnClick({R.id.create_commit_single, R.id.create_commit_map, R.id.create_commit_object})
+    @OnClick({R.id.create_commit_single, R.id.create_commit_map})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.create_commit_single:
@@ -57,7 +57,7 @@ public class DuoShuoActivity extends AppCompatActivity {
     private Callback<CommitResult> callback = new Callback<CommitResult>() {
         @Override
         public void onResponse(Call<CommitResult> call, Response<CommitResult> response) {
-            if (response.isSuccess()){
+            if (response.isSuccessful()){
                 Log.i(TAG, "success!!!");
                 Log.i(TAG, "---" + response.body().toString());
             } else {

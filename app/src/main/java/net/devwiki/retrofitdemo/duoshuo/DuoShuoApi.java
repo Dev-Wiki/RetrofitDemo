@@ -1,8 +1,7 @@
 package net.devwiki.retrofitdemo.duoshuo;
 
-import net.devwiki.retrofitdemo.net.GsonConverterFactory;
-
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by zyz on 2016/3/19.
