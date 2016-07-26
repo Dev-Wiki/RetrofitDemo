@@ -7,13 +7,13 @@ import android.support.annotation.NonNull;
  * Created by DevWiki on 2016/7/26.
  */
 
-public class BaseHttpException extends RuntimeException {
+public class HttpException extends RuntimeException {
 
-    public BaseHttpException(String msg) {
+    public HttpException(String msg) {
         super(msg);
     }
 
-    public BaseHttpException(@NonNull BaseResult result) {
+    public HttpException(@NonNull HttpResult result) {
         super(result.getDesc() + ", code=" + result.getCode());
     }
 }

@@ -5,7 +5,7 @@ package net.devwiki.retrofitdemo.base;
  * Created by DevWiki on 2016/7/26.
  */
 
-public class BaseResult<T> {
+public class HttpResult<T> {
 
     private String desc;
     private int code;
