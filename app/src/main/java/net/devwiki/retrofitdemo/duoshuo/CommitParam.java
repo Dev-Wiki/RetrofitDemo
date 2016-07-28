@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by zyz on 2016/3/19.
+ * Created by DevWiki on 2016/3/19.
  */
 public class CommitParam {
 

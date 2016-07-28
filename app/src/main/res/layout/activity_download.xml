@@ -8,4 +8,31 @@
     android:orientation="vertical"
     tools:context="net.devwiki.retrofitdemo.load.DownloadActivity">
 
+    <TextView
+        android:id="@+id/tv_file_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        android:textSize="16sp"
+        android:hint="@string/download_url"/>
+
+    <Button
+        android:id="@+id/btn_get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/get_download_url"/>
+
+    <ProgressBar
+        android:id="@+id/pb_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:max="100"/>
+
+    <Button
+        android:id="@+id/btn_load"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/download_file"/>
+
 </LinearLayout>

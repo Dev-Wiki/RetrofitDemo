@@ -21,5 +21,4 @@ public interface DownloadApi {
     @Streaming
     @GET
     Observable<ResponseBody> downloadFile(@Url String fileUrl);
-
 }

@@ -10,7 +10,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
- * Created by zyz on 2016/3/19.
+ * Created by DevWiki on 2016/3/19.
  */
 public interface DuoShuoService {
 

@@ -1,7 +1,7 @@
 package net.devwiki.retrofitdemo.load;
 
 /**
- * Created by Asia on 2016/7/27.
+ * Created by DevWiki on 2016/7/27.
  */
 
 public interface DownloadListener {

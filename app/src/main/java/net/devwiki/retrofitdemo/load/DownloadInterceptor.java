@@ -6,7 +6,8 @@ import okhttp3.Interceptor;
 import okhttp3.Response;
 
 /**
- * Created by Asia on 2016/7/27.
+ * 下载拦截器
+ * Created by DevWiki on 2016/7/27.
  */
 
 public class DownloadInterceptor implements Interceptor {

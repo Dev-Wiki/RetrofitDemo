@@ -1,7 +1,7 @@
 package net.devwiki.retrofitdemo.duoshuo;
 
 /**
- * Created by zyz on 2016/3/19.
+ * Created by DevWiki on 2016/3/19.
  */
 public class CommitResult {
 

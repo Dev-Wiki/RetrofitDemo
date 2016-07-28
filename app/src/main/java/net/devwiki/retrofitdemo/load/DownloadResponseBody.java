@@ -11,7 +11,7 @@ import okio.Okio;
 import okio.Source;
 
 /**
- * Created by Asia on 2016/7/27.
+ * Created by DevWiki on 2016/7/27.
  */
 
 public class DownloadResponseBody extends ResponseBody {
@@ -51,10 +51,10 @@ public class DownloadResponseBody extends ResponseBody {
             public long read(Buffer sink, long byteCount) throws IOException {
                 long bytesRead = super.read(sink, byteCount);
                 // read() returns the number of bytes read, or -1 if this source is exhausted.
-                totalBytesRead += bytesRead != -1 ? bytesRead : 0;
+                totalBytesRead = totalBytesRead + (bytesRead != -1 ? bytesRead : 0);
 
                 if (null != listener) {
-                    listener.onProgress(totalBytesRead, responseBody.contentLength(), bytesRead == -1);
+                    listener.onProgress(responseBody.contentLength(), totalBytesRead, bytesRead == -1);
                 }
                 return bytesRead;
             }

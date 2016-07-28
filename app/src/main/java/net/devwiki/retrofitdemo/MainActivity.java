@@ -9,27 +9,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.devwiki.retrofitdemo.duoshuo.DuoShuoActivity;
+import net.devwiki.retrofitdemo.load.DownloadActivity;
 import net.devwiki.retrofitdemo.phone.PhoneApi;
 import net.devwiki.retrofitdemo.phone.PhoneResult;
 import net.devwiki.retrofitdemo.phone.PhoneService;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Bind(R.id.phone_view)
+    @BindView(R.id.phone_view)
     EditText phoneView;
-    @Bind(R.id.result_view)
+    @BindView(R.id.result_view)
     TextView resultView;
 
     private PhoneApi phoneApi;
@@ -71,10 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .observeOn(AndroidSchedulers.mainThread())  //回调到主线程
                 .subscribe(new Observer<PhoneResult>() {
                     @Override
-                    public void onCompleted() {}
+                    public void onCompleted() {
+                    }
 
                     @Override
-                    public void onError(Throwable e) {}
+                    public void onError(Throwable e) {
+                    }
 
                     @Override
                     public void onNext(PhoneResult result) {
@@ -111,5 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+    }
+
+    @OnClick(R.id.download)
+    public void onClick() {
+        startActivity(new Intent(this, DownloadActivity.class));
     }
 }
