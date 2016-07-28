@@ -38,7 +38,7 @@ public class DownloadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_download);
         ButterKnife.bind(this);
 
-        filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/devwiki.apk";
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/fade.mp3";
     }
 
     @OnClick({R.id.btn_get, R.id.btn_load})
@@ -75,8 +75,6 @@ public class DownloadActivity extends AppCompatActivity {
             Toast.makeText(this, "Url error!!!", Toast.LENGTH_SHORT).show();
             return;
         }
-        String url = "http://113.107.238.18/dd.myapp.com/16891/616ABA7D8A0635725567FB229BC922E5" +
-                ".apk?mkey=579a20d96dc14f3f&f=8a5d&c=0&fsname=com.daimajia.gold_3.4.2_90.apk&p=.apk";
         DownloadListener listener = new DownloadListener() {
             @Override
             public void onProgress(long totalLength, long downloadLength, boolean isComplete) {
@@ -106,8 +104,8 @@ public class DownloadActivity extends AppCompatActivity {
 
             }
         };
-        DownloadHttp downloadHttp = new DownloadHttp(listener, url);
-        downloadHttp.downloadFile(subscriber, url, filePath);
+        DownloadHttp downloadHttp = new DownloadHttp(listener, tvFileUrl.getText().toString());
+        downloadHttp.downloadFile(subscriber, tvFileUrl.getText().toString(), filePath);
     }
 
     @Override
