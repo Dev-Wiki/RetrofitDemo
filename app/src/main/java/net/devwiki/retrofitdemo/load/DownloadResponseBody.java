@@ -11,6 +11,8 @@ import okio.Okio;
 import okio.Source;
 
 /**
+ * 下载相应的Body
+ *
  * Created by DevWiki on 2016/7/27.
  */
 

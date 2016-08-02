@@ -1,7 +1,5 @@
 package net.devwiki.retrofitdemo.load;
 
-import net.devwiki.retrofitdemo.base.HttpResult;
-
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Streaming;
@@ -14,9 +12,6 @@ import rx.Observable;
  */
 
 public interface DownloadApi {
-
-    @GET("/fileUrl")
-    Observable<HttpResult<String>> getFileUrl();
 
     @Streaming
     @GET

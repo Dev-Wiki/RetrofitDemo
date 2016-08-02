@@ -25,7 +25,7 @@ public class DownloadHttp {
 
     private DownloadApi loadApi;
 
-    public DownloadHttp(DownloadListener listener, String url) {
+    public DownloadHttp(DownloadListener listener, String baseUrl) {
         DownloadInterceptor interceptor = new DownloadInterceptor(listener);
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
@@ -34,7 +34,7 @@ public class DownloadHttp {
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl("http://7xjhi6.com1.z0.glb.clouddn.com/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -46,22 +46,25 @@ public class DownloadHttp {
                 .map(new Func1<ResponseBody, Boolean>() {
                     @Override
                     public Boolean call(ResponseBody responseBody) {
-                        return saveToLocal(responseBody, filePath);
+                        boolean result =  saveToLocal(responseBody, filePath);
+                        if (!result) {
+                            throw  new RuntimeException("下载失败！！！");
+                        }
+                        return result;
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
                 .subscribe(subscriber);
     }
 
     private boolean saveToLocal(ResponseBody responseBody, String filePath) {
         InputStream inputStream = responseBody.byteStream();
         FileOutputStream outputStream = null;
+        boolean result = false;
         try {
             outputStream = new FileOutputStream(new File(filePath));
             byte[] bytes = new byte[4096];
-            long fileLength = responseBody.contentLength();
             long downloadLength = 0;
             while (true) {
                 int readLength = inputStream.read(bytes);
@@ -72,7 +75,7 @@ public class DownloadHttp {
                 downloadLength = downloadLength + readLength;
             }
             outputStream.flush();
-            return true;
+            result = true;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -92,6 +95,6 @@ public class DownloadHttp {
                 }
             }
         }
-        return false;
+        return result;
     }
 }
